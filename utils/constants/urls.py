@@ -1,0 +1,1 @@
+base_url = "https://booking-control-main.azurewebsites.net/api/main/cancel?code=J82lgyhMTvskocmBo3beA1IMxtVKZ0LPlxnVBXYUie8DAzFuDTSCrw=="
