@@ -6,10 +6,11 @@ import json
 from utils.constants.req_bodies import booking, update, cancel 
 from utils.constants.urls import base_url
 from utils.functions import orchestrator_responder
+logging.basicConfig(level=logging.INFO)
 
 app = func.FunctionApp()
 
-@app.schedule(schedule="0 * * * * *", arg_name="myTimer", run_on_startup=True,
+@app.schedule(schedule="0 0 * * * *", arg_name="myTimer", run_on_startup=False,
               use_monitor=False) 
 def timer_trigger(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
