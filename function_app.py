@@ -2,6 +2,7 @@ import logging
 import azure.functions as func
 import requests
 import json
+import datetime
 
 from utils.constants.req_bodies import booking, update, cancel 
 from utils.constants.urls import base_url
@@ -10,15 +11,18 @@ logging.basicConfig(level=logging.INFO)
 
 app = func.FunctionApp()
 
-@app.schedule(schedule="0 0 * * * *", arg_name="myTimer", run_on_startup=False,
-              use_monitor=False) 
-def timer_trigger(myTimer: func.TimerRequest) -> None:
-    if myTimer.past_due:
+@app.function_name(name="mytimer")
+@app.schedule(schedule="0 */20 * * * *", arg_name="mytimer", run_on_startup=True) 
+def timer_function(mytimer: func.TimerRequest) -> None:
+    # utc_timestamp = datetime.datetime.utcnow().replace(
+    #     tzinfo=datetime.timezone.utc).isoformat()
+    if mytimer.past_due:
         logging.info('The timer is past due!')
 
-    logging.info('Python timer trigger function executed.')
+    # logging.info('Python timer trigger function ran at %s', utc_timestamp)
 
     try:
+        logging.info('Test')
         
         booking_response = requests.post(
             url=base_url,
